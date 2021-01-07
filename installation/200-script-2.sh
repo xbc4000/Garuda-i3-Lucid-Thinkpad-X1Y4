@@ -28,7 +28,7 @@ yay -S --noconfirm --needed acpi aarchup aconfmgr-git anydesk-bin
             yay -S --noconfirm --needed gotop github-desktop-bin google-earth-pro galculator guake
               yay -S --noconfirm --needed hexchat hddtemp howdy
                 yay -S --noconfirm --needed input-wacom-dkms iio-sensor-proxy-git
-                  yay -S --noconfirm --needed lm_sensors libfprint lsb-release libreoffice-still lib32-libevdev libwacom lutris
+                  yay -S --noconfirm --needed lm_sensors libfprint lsb-release libreoffice-still lib32-libevdev libwacom lutris linux-steam-integration
                     yay -S --noconfirm --needed materia-gtk-theme microsoft-edge-dev minecraft-launcher mcpelauncher-hx-script
                     yay -S --noconfirm --needed netflix-qdesktop notify-osd npm
                   yay -S --noconfirm --needed obs-studio obs-v4l2sink pod2man
