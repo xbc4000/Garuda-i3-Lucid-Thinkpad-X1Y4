@@ -44,18 +44,18 @@ format-offset =
 
 ################################################################################
 ################################################################################
-############                         MAINBAR-I3                     ############
+############                         TOP BAR                     ############
 ################################################################################
 ################################################################################
 
-[bar/mainbar-i3]
+[bar/top]
 monitor = ${env:MONITOR}
 monitor-strict = false
 override-redirect = false
 bottom = false
 fixed-center = true
 width = 100%
-height = 40
+height = 50
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -70,8 +70,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = "Hack:size=15;0"
-font-1 = "FontAwesome:size=15;0"
+font-0 = "Hack:size=17;0"
+font-1 = "FontAwesome:size=17;0"
 
 modules-left =appfinder i3 filesystem
 modules-center =temperature1 temperature2 temperature3 temperature4 temperature5 cpu1 memory1 battery load-average
@@ -96,18 +96,18 @@ scroll-down = i3wm-wsprev
 
 ################################################################################
 ################################################################################
-############                         MAINBAR-I3-EXTRA               ############
+############                         BOTTOM BAR              ############
 ################################################################################
 ################################################################################
 
-[bar/mainbar-i3-extra]
+[bar/bottom]
 monitor = ${env:MONITOR}
 monitor-strict = false
 override-redirect = false
 bottom = true
 fixed-center = true
 width = 100%
-height = 40
+height = 50
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -122,12 +122,12 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = "Hack:size=15;0"
-font-1 = "FontAwesome:size=15;0"
+font-0 = "Hack:size=17;0"
+font-1 = "FontAwesome:size=17;0"
 
-modules-left =volume previous playpause next spotify
-modules-center =clock-calendar weather
-modules-right =onboard bluetooth redraw picom updates
+modules-left =backlight volume previous playpause next spotify
+modules-center =uptime clock-calendar weather
+modules-right =onboard bluetooth redraw picom showdesktop updates
 
 ;tray-detached = false
 ;tray-offset-x = 0
@@ -307,7 +307,7 @@ format-unmounted-prefix-underline = #ff0000
 ;   %free%
 ;   %used%
 ; Default:%mountpoint% %percentage_free%%
-label-mounted = %mountpoint% %free%
+label-mounted = %fsname% %mountpoint% %used% %free% 
 label-mounted-underline = ${colors.underline}
 
 ; Available tokens:
@@ -331,7 +331,7 @@ thermal-zone = 0
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/virtual/thermal/thermal_zone0/hwmon1/temp1_input
+hwmon-path = /sys/devices/virtual/thermal/thermal_zone0/hwmon0/temp1_input
 
 warn-temperature = 70
 format = <ramp> <label>
@@ -368,7 +368,7 @@ thermal-zone = 1
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/pci0000:00/0000:00:1d.0/0000:03:00.0/hwmon/hwmon2/temp1_input
+hwmon-path = /sys/devices/pci0000:00/0000:00:1d.0/0000:03:00.0/hwmon/hwmon1/temp1_input
 
 warn-temperature = 70
 format = <ramp> <label>
@@ -389,45 +389,6 @@ ramp-5 = ▆
 ramp-6 = ▇
 ramp-7 = █
 ramp-foreground = ${colors.prefix-foreground}
-
-################################################################################
-
-[module/temperature2]
-type = internal/temperature
-; Thermal zone to use
-; To list all the zone types, run
-; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
-; Default: 0
-thermal-zone = 1
-
-; Full path of temperature sysfs path
-; Use `sensors` to find preferred temperature source, then run
-; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
-; to find path to desired file
-; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/pci0000:00/0000:00:1d.0/0000:03:00.0/hwmon/hwmon2/temp1_input
-
-warn-temperature = 70
-format = <ramp> <label>
-format-foreground = ${colors.foreground}
-format-background = ${colors.background}
-format-underline = ${colors.underline}
-format-warn = <ramp> <label-warn>
-format-warn-underline = #ff0000
-label = %temperature%
-label-warn =  %temperature%
-label-warn-foreground = #ff0000
-ramp-0 = ▁
-ramp-1 = ▂
-ramp-2 = ▃
-ramp-3 = ▄
-ramp-4 = ▅
-ramp-5 = ▆
-ramp-6 = ▇
-ramp-7 = █
-ramp-foreground = ${colors.prefix-foreground}
-
-################################################################################
 
 [module/temperature3]
 type = internal/temperature
@@ -442,7 +403,7 @@ thermal-zone = 4
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/virtual/thermal/thermal_zone4/hwmon5/temp1_input
+hwmon-path = /sys/devices/virtual/thermal/thermal_zone4/hwmon7/temp1_input
 
 warn-temperature = 70
 format = <ramp> <label>
@@ -479,7 +440,7 @@ thermal-zone = 6
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/virtual/thermal/thermal_zone6/hwmon8/temp1_input
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input
 
 warn-temperature = 70
 format = <ramp> <label>
@@ -516,7 +477,7 @@ thermal-zone = 7
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon9/temp1_input
+hwmon-path = /sys/devices/virtual/thermal/thermal_zone7/hwmon10/temp1_input
 
 warn-temperature = 70
 format = <ramp> <label>
@@ -670,7 +631,7 @@ type = internal/battery
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
 battery = BAT0
-adapter = AC0
+adapter = AC
 full-at = 99
 
 format-charging = <animation-charging> <label-charging>
@@ -742,7 +703,7 @@ format-prefix-foreground = ${colors.prefix-foreground}
 
 [module/wired-network]
 type = internal/network
-interface = enp3s0
+interface = enp0s31f6
 ; Seconds to sleep between updates
 ; Default: 1
 interval = 2.0
@@ -823,7 +784,7 @@ animation-packetloss-framerate = 500
 
 [module/wireless-network]
 type = internal/network
-interface = wlp2s0
+interface = wlp0s20f3
 ; Seconds to sleep between updates
 ; Default: 1
 interval = 3.0
@@ -918,7 +879,7 @@ animation-packetloss-framerate = 500
 type = custom/script
 interval = 120
 exec = echo ""
-click-left = "xfce4-appfinder"
+click-left = "rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 20'"
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 format-prefix-foreground = ${colors.prefix-foreground}
@@ -1108,3 +1069,72 @@ format-background = ${colors.background}
 click-left = /usr/bin/gsimplecal
 
 #################################################################
+
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+
+; Enable changing the backlight with the scroll wheel
+; NOTE: This may require additional configuration on some systems. Polybar will
+; write to `/sys/class/backlight/${self.card}/brightness` which requires polybar
+; to have write access to that file.
+; DO NOT RUN POLYBAR AS ROOT. 
+; The recommended way is to add the user to the
+; `video` group and give that group write-privileges for the `brightness` file.
+; See the ArchWiki for more information:
+; https://wiki.archlinux.org/index.php/Backlight#ACPI
+; Default: false
+enable-scroll = true
+
+; Available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format = <label> <bar>
+
+; Available tokens:
+;   %percentage% (default)
+label = 
+label-foreground = ${colors.prefix-foreground}
+
+; Only applies if <ramp> is used
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+; Only applies if <bar> is used
+bar-width = 10
+bar-indicator = 
+bar-fill = 
+bar-fill-foreground = ${colors.prefix-foreground}
+bar-empty = 
+bar-empty-foreground = ${colors.foreground}
+
+################################################################################
+
+[module/uptime]
+type = custom/script
+exec = uptime | awk -F, '{sub(".*up ",x,$1);print $1}'
+interval = 100
+label = Uptime:%output%
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = " "
+format-prefix-foreground = ${colors.prefix-foreground}
+format-underline = ${colors.underline}
+
+################################################################################
+
+[module/showdesktop]
+type = custom/script
+exec = echo ""
+click-left = exec i3-msg move scratchpad
+click-right = exec i3-msg [class=.*] scratchpad show
+
+################################################################################

@@ -30,14 +30,7 @@ bindsym $super+Shift+minus move scratchpad
 bindsym $super+minus scratchpad show
 
 #Screenshot
-bindsym Print exec --no-startup-id ksnip -fs
-bindsym $super+Print --release exec --no-startup-id ksnip -f
-bindsym $super+Shift+Print --release exec --no-startup-id ksnip -r
-
 bindsym Print exec --no-startup-id flameshot gui
-bindsym $super+Print --release exec --no-startup-id i3-scrot -w
-bindsym $super+Shift+Print --release exec --no-startup-id i3-scrot -s
-#bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
 
 #Redraw i3 inplace
 bindsym $mod+Shift+r restart
@@ -46,12 +39,9 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+c reload
 
 #Monitors
-set $firstMonitor HDMI-1-1
+set $firstMonitor eDP1
 
-#Resolution
-exec --no-startup-id xrandr --output HDMI-1-1 --mode 1920x1080
-
-#Monitor 1  1-10
+#Monitor 1  1-8
 workspace 1 output $firstMonitor
 workspace 2 output $firstMonitor
 workspace 3 output $firstMonitor
@@ -61,7 +51,7 @@ workspace 6 output $firstMonitor
 workspace 7 output $firstMonitor
 workspace 8 output $firstMonitor
 
-#Switch to workspace 1-10
+#Switch to workspace 1-8
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -71,7 +61,7 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 
-#Move focused container to workspace 1-10
+#Move focused container to workspace 1-8
 bindsym $mod+Shift+1 move container to workspace 1; workspace 1
 bindsym $mod+Shift+2 move container to workspace 2; workspace 2
 bindsym $mod+Shift+3 move container to workspace 3; workspace 3
@@ -92,6 +82,7 @@ assign [class="Hexchat|TelegramDesktop"]                                → 7
 assign [class="Tor Launcher|Tor Browser|VPN Unlimited"]                 → 8
 
 #Floating or tiled
+for_window [class="onboard"] floating enable border pixel 1
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
@@ -107,7 +98,6 @@ for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
-for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pamac-updater"] floating enable
 for_window [class="Pavucontrol"] floating enable
@@ -122,40 +112,9 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [class="keepassxc"] floating enable
 for_window [class="garuda-welcome"] floating enable
+for_window [class="Hexchat"] floating disable
 
 #Execute
-#Startup Applications
-exec --no-startup-id screenrotator
-exec --no-startup-id xsettingsd &
-exec --no-startup-id conky
-exec --no-startup-id conky -c ~/.config/conky/conky-shcts 
-exec --no-startup-id dunst
-exec --no-startup-id garuda-welcome
-#exec --no-startup-id redshift
-exec --no-startup-id desktop-items
-exec --no-startup-id nm-applet
-
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id xfce4-power-manager
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id setcursor
-exec_always --no-startup-id tint2
-#exec_always --no-startup-id ${HOME}/.config/polybar/launch.sh
-#exec_always --no-startup-id ${HOME}/.config/polybar/scripts/launchlistener.sh
-exec_always --no-startup-id numlockx on
-exec blueberry-tray
-exec --no-startup-id java -Xmx1024m -jar "/opt/xdman/xdman.jar" -m
-
-# start a terminal #alacritty xfce4-terminal
-bindsym $super+Return exec xfce4-terminal
-bindsym $super+t exec xfce4-terminal
-bindsym $super+Shift+Return exec alacritty
-
-exec --no-startup-id Hexchat
-exec --no-startup-id spotify
-exec --no-startup-id discord
-exec --no-startup-id telegram-desktop
-
 #Tray Applications
 exec --no-startup-id copyq
 exec --no-startup-id aarchup
@@ -164,37 +123,57 @@ exec --no-startup-id steam
 exec --no-startup-id onboard
 exec --no-startup-id variety
 exec --no-startup-id guake
-exec --no-startup-id tomboy
 exec --no-startup-id pasystray
 exec --no-startup-id pamac-tray
 
+#Startup Applications
+#exec --no-startup-id garuda-welcome
+#exec --no-startup-id Redshift
+exec --no-startup-id hexchat
+exec --no-startup-id spotify
+exec --no-startup-id discord
+exec --no-startup-id telegram-desktop
+exec --no-startup-id screenrotator
+exec --no-startup-id xsettingsd &
+exec --no-startup-id conky
+exec --no-startup-id conky -c ~/.config/conky/conky-shcts 
+exec --no-startup-id dunst
+exec --no-startup-id blueberry-tray
+exec --no-startup-id desktop-items
+exec --no-startup-id nm-applet
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id java -Xmx1024m -jar "/opt/xdman/xdman.jar" -m
+
 #Background Applications
+#exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
 exec_always --no-startup-id autotiling
 exec_always --no-startup-id numlockx on
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-exec_always --no-startup-id ~/.config/polybar/scripts/launchlistener.sh
 exec_always --no-startup-id nitrogen --restore; sleep 1; picom -b
-#exec_always --no-startup-id picom --config ~/.config/i3/picom.conf
-exec_always --no-startup-id xautolock -time 1 -locker i3lock-next "Security Clearence Required" "hack" 24
+exec_always --no-startup-id xautolock -time 1 -locker i3lock "Security Clearence Required" "hack" 24
 exec_always --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id setcursor
+exec_always --no-startup-id tint2
+exec_always --no-startup-id ${HOME}/.config/polybar/launch.sh
+exec_always --no-startup-id ${HOME}/.config/polybar/scripts/launchlistener.sh
+exec_always --no-startup-id numlockx on
 
 #App keyboard shortcuts
-
 #Appfinders
-bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=20'"
+bindsym mod1+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'hack:size=20'"
 bindsym mod1+F1 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 20'
 
 #Htop
-bindsym mod1+F2 exec --no-startup-id xfce4-taskmanager;focus
+bindsym mod1+F2 exec --no-startup-id alacritty -e htop;focus
 
 #Terminal
-bindsym mod1+F3 exec --no-startup-id termite;focus
+bindsym mod1+F3 exec --no-startup-id alacritty;focus
 
-#Gmrun
-bindsym mod1+F4 exec --no-startup-id gmrun -font "hack 13"
+#Auto updates
+#bindsym mod1+F4 exec --no-startup-id alacritty -e aarchup;focus
 
 #Variety
-
 #Trash wallpaper
 bindsym mod1+t exec --no-startup-id variety -t
 
@@ -216,8 +195,10 @@ bindsym mod1+Up exec --no-startup-id variety --pause
 bindsym mod1+Down exec --no-startup-id variety --resume
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym mod1+F5 exec --no-startup-id xrandr --output eDP1 --brightness 0
+bindsym mod1+F6 exec --no-startup-id xrandr --output eDP1 --brightness 1.5
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 5; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 5; notify-send 'brightness down'"
 
 #Volume control
 bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master toggle"
@@ -231,7 +212,21 @@ bindsym XF86AudioPrev exec --no-startup-id "dbus-send --print-reply --dest=org.m
 bindsym XF86AudioStop exec --no-startup-id "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
 
 #Power Menu#
-bindsym $mod+X exec --no-startup-id arcolinux-logout
+bindsym $mod+x mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # exit system mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 #Moving around i3
 #use Mouse+$mod to drag floating windows to their wanted position

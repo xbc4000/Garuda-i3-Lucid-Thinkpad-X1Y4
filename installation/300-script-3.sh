@@ -9,10 +9,10 @@
 set -e
 
 cp -r i3/* ~/.config/i3/
-cp -r settings/polybar/* ~/.config/polybar/
+cp -r polybar/* ~/.config/polybar/
 
   echo "Custom settings installed"
 
   echo "AUTO REBOOTING NOW"
 
-sudo systemctl -i reboot
+#sudo systemctl -i reboot
