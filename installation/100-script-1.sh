@@ -48,16 +48,6 @@ case $numberofcores in
 esac
   echo "All cores will be used during building and compression"
 
-# installing reflector to test which servers are fastest
-sudo pacman -S --noconfirm --needed reflector
-
-echo "finding fastest servers please stand by"
-
-# finding the fastest archlinux servers
-sudo reflector -l 100 -f 50 --sort rate --threads 5 --verbose --save /tmp/mirrorlist.new && rankmirrors -n 0 /tmp/mirrorlist.new > /tmp/mirrorlist && sudo cp /tmp/mirrorlist /etc/pacman.d
-
-echo "fastest servers saved"
-cat /etc/pacman.d/mirrorlist
 sudo pacman -Syu --noconfirm --needed
 
-echo "mirrorlist update complete"
+  echo "Updates complete"
